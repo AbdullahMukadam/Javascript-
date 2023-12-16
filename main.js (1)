@@ -1,0 +1,59 @@
+var timer=60;
+let score=0;
+let random;
+
+function makebubble(){
+let htmlString="";
+
+for(let i=1;i<=63;i++){
+  let rn =Math.floor(Math.random()*10)
+  htmlString += `
+      <div class="bubble">${rn}</div>
+   `
+}
+
+
+document.querySelector(".display").innerHTML=htmlString;
+
+}
+
+
+function updatetime(){
+ let timerchange= setInterval(function(){
+   if(timer>0){
+    timer--;
+    document.getElementById("timerval").textContent=timer;
+   }
+   else{
+     clearInterval(timerchange);
+     document.querySelector(".display").innerHTML=`<h1>Game Over</h1>`
+   }
+  },1000)
+  
+}
+
+function updatehit(){
+ random=  Math.floor(Math.random()*10)
+document.getElementById("hitval").textContent=random
+
+}
+
+
+function updatescore(){
+  score += 10;
+  document.getElementById("scoreval").textContent=score;
+}
+
+document.querySelector(".display").addEventListener("click",function(dets){
+  let value = Number(dets.target.textContent)
+  if(random === value){
+    updatescore();
+    makebubble();
+    updatehit();
+  }
+
+})
+
+makebubble();
+updatetime();
+updatehit();
